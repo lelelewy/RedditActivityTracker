@@ -18,10 +18,9 @@ def commentMatcher():
 	for comment in comments:
 		commentComparison.insert(0, comment)
 	if commentCollection[0] != commentComparison[0]:
-		r.send_message('insertusernamehere', 'just made a new comment', 'go check now')
+		r.send_message('insertusernamehere', '%s just made a new comment' %user, commentComparison[0])
 		commentCollection = list(commentComparison)
-	else:
-		r.send_message('insertusernamehere', 'did not made a new comment', 'sorry')
+
 
 while(True):
 	commentMatcher()
