@@ -12,11 +12,11 @@ def commentMatcher():
 	global commentComparison 
 	comments = user.get_comments(limit = 1)
 	for comment in comments:
-		commentCollection.append(comment)
-	time.sleep(60)
+		commentCollection.insert(0,comment)
+	time.sleep(10)
 	comments = user.get_comments(limit = 1)
 	for comment in comments:
-		commentComparison.append(comment)
+		commentComparison.insert(0, comment)
 	if commentCollection[0] != commentComparison[0]:
 		r.send_message('insertusernamehere', 'just made a new comment', 'go check now')
 		commentCollection = list(commentComparison)
