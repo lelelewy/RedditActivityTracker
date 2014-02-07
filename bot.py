@@ -10,8 +10,8 @@ commentComparison = []
 submissionCollection = []
 submissionComparison = []
 
-account_sid = "AC5df5170fce7cffbda8c085cb39d9b7cf"
-auth_token = "455a2555d4ae189673a694a886386ad0"
+account_sid = "will update later with config file"
+auth_token = "will update later with config file"
 client = TwilioRestClient(account_sid, auth_token)
 
 
