@@ -1,9 +1,0 @@
-[SectionOne]
-username = sampleusername
-password = samplepassword
-user = sampleuser
-stalker = samplestalker
-account_sid = stringwithaccountinfo
-auth_token = stringwithtokeninfo
-twilio_number = +19999999999
-stalker_number = +19999999999
