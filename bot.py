@@ -27,7 +27,7 @@ def commentMatcher():
 		commentComparison.insert(0, comment)
 		compermalink = comment.permalink
 	if commentCollection[0] != commentComparison[0]:
-		message = client.messages.create(to="+19086982296", from_="+17324121974",
+		message = client.messages.create(to="phone number here", from_="phone number here",
                                      body="%s just made a new comment. Check it out here - %s" % (user, compermalink))
 		r.send_message('krumpqueen', '%s just made a new comment' %user, compermalink)
 		commentCollection = list(commentComparison)
@@ -42,9 +42,12 @@ def submissionMatcher():
 	submissions = user.get_submitted(limit = 1)
 	for submission in submissions:
 		submissionComparison.insert(0, submission)
+		subpermalink = submission.permalink
 	if submissionCollection[0] != submissionComparison[0]:
-		r.send_message('insertusernamehere', '%s just made a new comment' %user, submissionComparison[0])
-
+		message = client.messages.create(to="phone number here", from_="phone number here",
+                                     body="%s just made a new submission. Check it out here - %s" % (user, subpermalink))
+		r.send_message('insertusernamehere', '%s just made a new submission' %user, submissionComparison[0])
+		submissionCollection = list(submissionComparison)
 
 while(True):
 	commentMatcher()
