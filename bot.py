@@ -1,19 +1,22 @@
 import praw
 import time 
 from twilio.rest import TwilioRestClient 
+from ConfigParser import SafeConfigParser
+
+parser = SafeConfigParser()
+parser.read('config.ini')
 
 r = praw.Reddit('PRAW related-question monitor by u/testpurposes v 1.0.')
-r.login()
-user = r.get_redditor('insertusernamehere')
+r.login(parser.get('SectionOne', 'username'), parser.get('SectionOne', 'password'))
+user = r.get_redditor(parser.get('SectionOne', 'user'))
 commentCollection = []
 commentComparison = []
 submissionCollection = []
 submissionComparison = []
 
-account_sid = "will update later with config file"
-auth_token = "will update later with config file"
+account_sid = parser.get('SectionOne', 'account_sid')
+auth_token = parser.get('SectionOne', 'auth_token')
 client = TwilioRestClient(account_sid, auth_token)
-
 
 def commentMatcher():
 	global commentCollection
@@ -27,10 +30,11 @@ def commentMatcher():
 		commentComparison.insert(0, comment)
 		compermalink = comment.permalink
 	if commentCollection[0] != commentComparison[0]:
-		message = client.messages.create(to="phone number here", from_="phone number here",
+		message = client.messages.create(to=parser.get('SectionOne', 'stalker_number'), from_=parser.get('SectionOne', 'twilio_number'),
                                      body="%s just made a new comment. Check it out here - %s" % (user, compermalink))
-		r.send_message('krumpqueen', '%s just made a new comment' %user, compermalink)
+		r.send_message(parser.get('SectionOne', 'stalker'), '%s just made a new comment' %user, compermalink)
 		commentCollection = list(commentComparison)
+	
 
 def submissionMatcher():
 	global submissionCollection
@@ -44,9 +48,9 @@ def submissionMatcher():
 		submissionComparison.insert(0, submission)
 		subpermalink = submission.permalink
 	if submissionCollection[0] != submissionComparison[0]:
-		message = client.messages.create(to="phone number here", from_="phone number here",
+		message = client.messages.create(to=parser.get('SectionOne', 'stalker_number'), from_=parser.get('SectionOne', 'twilio_number'),
                                      body="%s just made a new submission. Check it out here - %s" % (user, subpermalink))
-		r.send_message('insertusernamehere', '%s just made a new submission' %user, submissionComparison[0])
+		r.send_message(parser.get('SectionOne', 'stalker'), '%s just made a new submission' %user, submissionComparison[0])
 		submissionCollection = list(submissionComparison)
 
 while(True):
